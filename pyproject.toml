@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "lambda-ecr-image-scan-findings"
+version = "0.1.0"
+description = ""
+authors = ["Liang Cheng <lcheng@csbs.org>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+"aws-cdk.core" = "^1.113.0"
+black = "^21.6b0"
+isort = "^5.9.2"
+pytest = "^6.2.4"
+requests = "^2.26.0"
+aws-lambda-powertools = "^1.17.1"
+"aws-cdk.aws-lambda-python" = "^1.113.0"
+"aws-cdk.aws-sns" = "^1.113.0"
+"aws-cdk.aws-sns-subscriptions" = "^1.113.0"
+"aws-cdk.aws-events-targets" = "^1.114.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

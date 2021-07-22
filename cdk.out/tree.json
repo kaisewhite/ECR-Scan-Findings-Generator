@@ -1,0 +1,540 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Construct",
+          "version": "1.110.0"
+        }
+      },
+      "ECRImageScanFindingsStack": {
+        "id": "ECRImageScanFindingsStack",
+        "path": "ECRImageScanFindingsStack",
+        "children": {
+          "ecr-image-scan-findings-generator": {
+            "id": "ecr-image-scan-findings-generator",
+            "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.110.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "ec2:CreateNetworkInterface",
+                                    "ec2:DescribeNetworkInterfaces",
+                                    "ec2:DeleteNetworkInterface",
+                                    "xray:*",
+                                    "ecr:GetRegistryPolicy",
+                                    "ecr:DescribeImageScanFindings",
+                                    "ecr:GetLifecyclePolicyPreview",
+                                    "ecr:GetDownloadUrlForLayer",
+                                    "ecr:DescribeRegistry",
+                                    "ecr:GetAuthorizationToken",
+                                    "ecr:ListTagsForResource",
+                                    "ecr:ListImages",
+                                    "ecr:BatchGetImage",
+                                    "ecr:DescribeImages",
+                                    "ecr:DescribeRepositories",
+                                    "ecr:BatchCheckLayerAvailability",
+                                    "ecr:GetRepositoryPolicy",
+                                    "ecr:GetLifecyclePolicy"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "s3:GetObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*",
+                                    "s3:PutObject",
+                                    "s3:Abort*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "sandboxecrimagescanfindingsbucketD59CA1AE",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "sandboxecrimagescanfindingsbucketD59CA1AE",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "ecrimagescanfindingsgeneratorServiceRoleDefaultPolicyF54905BE",
+                            "roles": [
+                              {
+                                "Ref": "ecrimagescanfindingsgeneratorServiceRoleC414AD69"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                          "version": "1.110.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Policy",
+                      "version": "1.110.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.110.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.AssetStaging",
+                      "version": "1.110.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/Code/AssetBucket",
+                    "children": {
+                      "Notifications": {
+                        "id": "Notifications",
+                        "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/Code/AssetBucket/Notifications",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.110.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketBase",
+                      "version": "1.110.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                  "version": "1.110.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "ECRImageScanFindingsStack/ecr-image-scan-findings-generator/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633aS3Bucket06E3CF58"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633aS3VersionKey33EF4C2C"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633aS3VersionKey33EF4C2C"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "ecrimagescanfindingsgeneratorServiceRoleC414AD69",
+                        "Arn"
+                      ]
+                    },
+                    "environment": {
+                      "variables": {
+                        "bucket_prefix": "sandbox"
+                      }
+                    },
+                    "functionName": "ecr-image-scan-findings-generator",
+                    "handler": "app.lambda_handler",
+                    "runtime": "python3.6",
+                    "timeout": 180
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.110.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-lambda-python.PythonFunction",
+              "version": "1.98.0"
+            }
+          },
+          "AssetParameters": {
+            "id": "AssetParameters",
+            "path": "ECRImageScanFindingsStack/AssetParameters",
+            "children": {
+              "9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633a": {
+                "id": "9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633a",
+                "path": "ECRImageScanFindingsStack/AssetParameters/9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633a",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "ECRImageScanFindingsStack/AssetParameters/9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633a/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.110.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "ECRImageScanFindingsStack/AssetParameters/9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633a/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.110.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "ECRImageScanFindingsStack/AssetParameters/9125fb52f852f77174bb544762a760466435910b3a37ea3f0dbf809a246e633a/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.110.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.110.0"
+                }
+              },
+              "4cd61014b71160e8c66fe167e43710d5ba068b80b134e9bd84508cf9238b2392": {
+                "id": "4cd61014b71160e8c66fe167e43710d5ba068b80b134e9bd84508cf9238b2392",
+                "path": "ECRImageScanFindingsStack/AssetParameters/4cd61014b71160e8c66fe167e43710d5ba068b80b134e9bd84508cf9238b2392",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "ECRImageScanFindingsStack/AssetParameters/4cd61014b71160e8c66fe167e43710d5ba068b80b134e9bd84508cf9238b2392/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.110.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "ECRImageScanFindingsStack/AssetParameters/4cd61014b71160e8c66fe167e43710d5ba068b80b134e9bd84508cf9238b2392/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.110.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "ECRImageScanFindingsStack/AssetParameters/4cd61014b71160e8c66fe167e43710d5ba068b80b134e9bd84508cf9238b2392/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.110.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.110.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.110.0"
+            }
+          },
+          "sandbox-ecr-image-scan-findings-bucket": {
+            "id": "sandbox-ecr-image-scan-findings-bucket",
+            "path": "ECRImageScanFindingsStack/sandbox-ecr-image-scan-findings-bucket",
+            "children": {
+              "Notifications": {
+                "id": "Notifications",
+                "path": "ECRImageScanFindingsStack/sandbox-ecr-image-scan-findings-bucket/Notifications",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.110.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "ECRImageScanFindingsStack/sandbox-ecr-image-scan-findings-bucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "sandbox-ecr-image-scan-findings"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3.CfnBucket",
+                  "version": "1.110.0"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "ECRImageScanFindingsStack/sandbox-ecr-image-scan-findings-bucket/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ECRImageScanFindingsStack/sandbox-ecr-image-scan-findings-bucket/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "sandboxecrimagescanfindingsbucketD59CA1AE"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "s3:GetBucket*",
+                                "s3:List*",
+                                "s3:DeleteObject*"
+                              ],
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": {
+                                  "Fn::GetAtt": [
+                                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                                    "Arn"
+                                  ]
+                                }
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "sandboxecrimagescanfindingsbucketD59CA1AE",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "sandboxecrimagescanfindingsbucketD59CA1AE",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.CfnBucketPolicy",
+                      "version": "1.110.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3.BucketPolicy",
+                  "version": "1.110.0"
+                }
+              },
+              "AutoDeleteObjectsCustomResource": {
+                "id": "AutoDeleteObjectsCustomResource",
+                "path": "ECRImageScanFindingsStack/sandbox-ecr-image-scan-findings-bucket/AutoDeleteObjectsCustomResource",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "ECRImageScanFindingsStack/sandbox-ecr-image-scan-findings-bucket/AutoDeleteObjectsCustomResource/Default",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnResource",
+                      "version": "1.110.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CustomResource",
+                  "version": "1.110.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-s3.Bucket",
+              "version": "1.110.0"
+            }
+          },
+          "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
+            "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "path": "ECRImageScanFindingsStack/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "ECRImageScanFindingsStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.AssetStaging",
+                  "version": "1.110.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "ECRImageScanFindingsStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.110.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "ECRImageScanFindingsStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.110.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.CustomResourceProvider",
+              "version": "1.110.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "ECRImageScanFindingsStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "ECRImageScanFindingsStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.110.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "ECRImageScanFindingsStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnCondition",
+                  "version": "1.110.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.110.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Stack",
+          "version": "1.110.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "@aws-cdk/core.App",
+      "version": "1.110.0"
+    }
+  }
+}

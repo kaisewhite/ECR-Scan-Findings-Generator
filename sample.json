@@ -1,0 +1,25 @@
+{
+    "registryId":"407747792847",
+    "repositoryName":"nmlsappkieserverimagerepositoryc820a13a-gw0t4ztfavha",
+    "imageDigest":"sha256:22559a2e03d440f281ddb34f2c1ea5eb3f122ce4197afe1d8d7ab8791839f84b",
+    "imageTags":[
+       "e37b550"
+    ],
+    "imageSizeInBytes":691458029,
+    "imagePushedAt":"datetime.datetime(2020, 12, 24, 3, 21, 23, tzinfo=tzlocal())",
+    "imageScanStatus":{
+       "status":"COMPLETE",
+       "description":"The scan was completed successfully."
+    },
+    "imageScanFindingsSummary":{
+       "imageScanCompletedAt":"datetime.datetime(2021, 3, 22, 18, 43, 9, tzinfo=tzlocal())",
+       "vulnerabilitySourceUpdatedAt":"datetime.datetime(2021, 3, 16, 16, 38, 54, tzinfo=tzlocal())",
+       "findingSeverityCounts":{
+          "MEDIUM":33,
+          "LOW":7,
+          "HIGH":5
+       }
+    },
+    "imageManifestMediaType":"application/vnd.docker.distribution.manifest.v2+json",
+    "artifactMediaType":"application/vnd.docker.container.image.v1+json"
+ }
